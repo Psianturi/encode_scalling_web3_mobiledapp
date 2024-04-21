@@ -102,7 +102,7 @@ class ContractFactoryServies extends ChangeNotifier {
 
   saveAccountAddress(String account) {
     myAccount = account;
-   notifyListeners();
+    notifyListeners();
   }
 
   _setUpNetwork() async {
@@ -131,7 +131,7 @@ class ContractFactoryServies extends ChangeNotifier {
 
   Future<void> _getDeployedContract() async {
     _contract = DeployedContract(
-        ContractAbi.fromJson(_abiCode!, "MarketplaceProducts"),
+        ContractAbi.fromJson(_abiCode!, "BlockchainMarketplace"),
         _contractAddress!);
     await _getStoreName();
     await _getStoreProductCount();
@@ -180,7 +180,7 @@ class ContractFactoryServies extends ChangeNotifier {
             function: _contract!.function("storeProducts"),
             params: [BigInt.from(i)]);
 
-        if(product[4] != true){
+        if (product[4] != true) {
           allProducts.add(ProductModel(
               id: product[0],
               name: product[1],
@@ -191,8 +191,6 @@ class ContractFactoryServies extends ChangeNotifier {
               price: product[6],
               category: product[7]));
         }
-
-
       }
       storeProductsLoading = false;
     } catch (e) {
@@ -244,13 +242,13 @@ class ContractFactoryServies extends ChangeNotifier {
   }
   //Buy Product Function
 
-  buyProduct(BigInt id,String account,BigInt amount) async {
+  buyProduct(BigInt id, String account, BigInt amount) async {
     EthereumWalletConnectProvider provider =
         EthereumWalletConnectProvider(connector);
     WalletConnectCredentials cridentials =
         WalletConnectCredentials(provider: provider);
     productCreatedLoading = true;
-    if (id!=null ) {
+    if (id != null) {
       await _cleint!.sendTransaction(
           cridentials,
           Transaction.callContract(
@@ -279,7 +277,7 @@ class ContractFactoryServies extends ChangeNotifier {
             function: _contract!.function("storeProducts"),
             params: [BigInt.from(i)]);
 
-        if(product[5].toString() == myAccount.toString()){
+        if (product[5].toString() == myAccount.toString()) {
           allUserProducts.add(ProductModel(
               id: product[0],
               name: product[1],
@@ -290,8 +288,6 @@ class ContractFactoryServies extends ChangeNotifier {
               price: product[6],
               category: product[7]));
         }
-
-
       }
       storeProductsLoading = false;
     } catch (e) {
@@ -307,8 +303,7 @@ class ContractFactoryServies extends ChangeNotifier {
     try {
       categoryProducts.clear();
       for (int i = 1; i <= allProducts.length; i++) {
-
-        if(allProducts[i].category == categoryName){
+        if (allProducts[i].category == categoryName) {
           categoryProducts.add(ProductModel(
               id: allProducts[i].id,
               name: allProducts[i].name,
@@ -319,8 +314,6 @@ class ContractFactoryServies extends ChangeNotifier {
               price: allProducts[i].price,
               category: allProducts[i].category));
         }
-
-
       }
     } catch (e) {
       print("Error at getCategoryProducts ${e} ");

@@ -2,7 +2,7 @@
 pragma solidity ^0.8.9;
 
 
-contract MarketplaceProducts{
+contract BlockchainMarketplace{
 
     string public storeName = "Blockchain Marketplace";
     uint public count = 0;
