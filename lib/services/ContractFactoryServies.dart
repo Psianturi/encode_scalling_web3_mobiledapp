@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:encode_scalling_web3_mobiledapp/utilities/WalletConnectCredentials.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
@@ -11,7 +11,6 @@ import 'package:web3dart/web3dart.dart';
 import 'package:web_socket_channel/io.dart';
 import '../ui/AccountProfilePage.dart';
 import '../utilities/Constants.dart';
-import '../utilities/WalletConnectCredentials.dart';
 import 'Models/ProductModel.dart';
 
 class ContractFactoryServies extends ChangeNotifier {
@@ -46,19 +45,19 @@ class ContractFactoryServies extends ChangeNotifier {
 
   fetchMyBalance(String accountAddress) async {
     EtherAmount balance =
-        await _cleint!.getBalance(EthereumAddress.fromHex(accountAddress));
-    String convertedValueToETH =
-        balance.getValueInUnit(EtherUnit.ether).toString();
+    await _cleint!.getBalance(EthereumAddress.fromHex(accountAddress));
+    String ConvertedValueToETH =
+    balance.getValueInUnit(EtherUnit.ether).toString();
 
-    myBalance = convertedValueToETH;
+    myBalance = ConvertedValueToETH;
   }
 
   // Create a connector
   final connector = WalletConnect(
     bridge: 'https://bridge.walletconnect.org',
-    clientMeta: const PeerMeta(
-      name: 'Fox Blockchain Marketplace',
-      description: 'Decentralized mobile app with flutter',
+    clientMeta: PeerMeta(
+      name: 'Woo Store',
+      description: 'Decentralized mobiel app with flutter',
       url: 'https://coodes.org',
       icons: ['https://coodes.org/wp-content/uploads/2020/07/ic.png'],
     ),
@@ -72,9 +71,7 @@ class ContractFactoryServies extends ChangeNotifier {
       });
 
       try {} catch (e) {
-        if (kDebugMode) {
-          print("Error at connect to wallet ${e}");
-        }
+        print("Error at connect to wallet ${e}");
       }
     }
   }
@@ -84,7 +81,7 @@ class ContractFactoryServies extends ChangeNotifier {
   fetchProductCreatedEvent(context) async {
     _cleint!
         .events(FilterOptions.events(
-            contract: _contract!, event: _contract!.event("CreatedProduct")))
+        contract: _contract!, event: _contract!.event("CreatedProduct")))
         .take(1)
         .listen((event) {
       print("event of Create Product ${event}");
@@ -108,9 +105,9 @@ class ContractFactoryServies extends ChangeNotifier {
   _setUpNetwork() async {
     _cleint =
         Web3Client(constants.NETWORK_HTTPS_RPC, Client(), socketConnector: () {
-      return IOWebSocketChannel.connect(constants.NETWORK_WSS_RPC)
-          .cast<String>();
-    });
+          return IOWebSocketChannel.connect(constants.NETWORK_WSS_RPC)
+              .cast<String>();
+        });
     await _fetchABIAndContractAdrress();
     await _getDeployedContract();
   }
@@ -119,7 +116,7 @@ class ContractFactoryServies extends ChangeNotifier {
   //a-get abi and contract address
   Future<void> _fetchABIAndContractAdrress() async {
     String abiFileRoot =
-        await rootBundle.loadString(constants.CONTRACT_ABI_PATH);
+    await rootBundle.loadString(constants.CONTRACT_ABI_PATH);
     var abiJsonFormat = jsonDecode(abiFileRoot);
     _abiCode = jsonEncode(abiJsonFormat["abi"]);
 
@@ -131,7 +128,7 @@ class ContractFactoryServies extends ChangeNotifier {
 
   Future<void> _getDeployedContract() async {
     _contract = DeployedContract(
-        ContractAbi.fromJson(_abiCode!, "BlockchainMarketplace"),
+        ContractAbi.fromJson(_abiCode!, "MarketplaceProducts"),
         _contractAddress!);
     await _getStoreName();
     await _getStoreProductCount();
@@ -180,7 +177,7 @@ class ContractFactoryServies extends ChangeNotifier {
             function: _contract!.function("storeProducts"),
             params: [BigInt.from(i)]);
 
-        if (product[4] != true) {
+        if(product[4] != true){
           allProducts.add(ProductModel(
               id: product[0],
               name: product[1],
@@ -191,6 +188,8 @@ class ContractFactoryServies extends ChangeNotifier {
               price: product[6],
               category: product[7]));
         }
+
+
       }
       storeProductsLoading = false;
     } catch (e) {
@@ -210,9 +209,9 @@ class ContractFactoryServies extends ChangeNotifier {
   addProduct(String name, String description, String image, String price,
       String category, String account, BuildContext context) async {
     EthereumWalletConnectProvider provider =
-        EthereumWalletConnectProvider(connector);
+    EthereumWalletConnectProvider(connector);
     WalletConnectCredentials credentials =
-        WalletConnectCredentials(provider: provider);
+    WalletConnectCredentials(provider: provider);
     productCreatedLoading = true;
     if (name.length > 1 &&
         description.length > 9 &&
@@ -242,15 +241,15 @@ class ContractFactoryServies extends ChangeNotifier {
   }
   //Buy Product Function
 
-  buyProduct(BigInt id, String account, BigInt amount) async {
+  buyProduct(BigInt id,String account,BigInt amount) async {
     EthereumWalletConnectProvider provider =
-        EthereumWalletConnectProvider(connector);
-    WalletConnectCredentials cridentials =
-        WalletConnectCredentials(provider: provider);
+    EthereumWalletConnectProvider(connector);
+    WalletConnectCredentials credentials =
+    WalletConnectCredentials(provider: provider);
     productCreatedLoading = true;
-    if (id != null) {
+    if (id!=null ) {
       await _cleint!.sendTransaction(
-          cridentials,
+          credentials,
           Transaction.callContract(
               from: EthereumAddress.fromHex(account),
               contract: _contract!,
@@ -277,7 +276,7 @@ class ContractFactoryServies extends ChangeNotifier {
             function: _contract!.function("storeProducts"),
             params: [BigInt.from(i)]);
 
-        if (product[5].toString() == myAccount.toString()) {
+        if(product[5].toString() == myAccount.toString()){
           allUserProducts.add(ProductModel(
               id: product[0],
               name: product[1],
@@ -288,6 +287,8 @@ class ContractFactoryServies extends ChangeNotifier {
               price: product[6],
               category: product[7]));
         }
+
+
       }
       storeProductsLoading = false;
     } catch (e) {
@@ -303,7 +304,8 @@ class ContractFactoryServies extends ChangeNotifier {
     try {
       categoryProducts.clear();
       for (int i = 1; i <= allProducts.length; i++) {
-        if (allProducts[i].category == categoryName) {
+
+        if(allProducts[i].category == categoryName){
           categoryProducts.add(ProductModel(
               id: allProducts[i].id,
               name: allProducts[i].name,
@@ -314,6 +316,8 @@ class ContractFactoryServies extends ChangeNotifier {
               price: allProducts[i].price,
               category: allProducts[i].category));
         }
+
+
       }
     } catch (e) {
       print("Error at getCategoryProducts ${e} ");

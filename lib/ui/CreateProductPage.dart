@@ -173,19 +173,20 @@ class _CreateProductPageState extends State<CreateProductPage> {
           var hash = jsonDecode(res.body);
           return {
             "status":"Success",
-            "IpfsHash":hash["IpfsHash"].toString()
+            "IpfsHash":hash["IpfsHash"].toString(),
 
           };
+
         }
       }catch(e){
-        print("Erroe at catch ${e}");
+        print("Error at catch ${e}");
       }
 
     }
 
     return {
       "status":"Success",
-      "IpfsHash":"cjhdgsdnvuy65d786sduhvs7dy"
+      "IpfsHash":"QmR1TXq4Rc7pEyp8c25UhmG2iJTQHYh1PJwKU1V6ypHMN8"
     };
    }
 }

@@ -4,24 +4,28 @@ class Constants {
   //=======>Blockchain Data
 
   //Contract Data
-  final CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
-  final CONTRACT_ABI_PATH = "assets/abi_file/BlockchainMarketplace.json";
+  final CONTRACT_ADDRESS = "0xbd68730c2c95d303e3b862d8f342a6a96e4f6215";
+  final CONTRACT_ABI_PATH = "assets/abi/BlockchainMarketplace.json";
 
-  //Blockchain Network Data
+//Blockchain Network Datas
+
   final NETWORK_HTTPS_RPC =
       "https://sepolia.infura.io/v3/a3afa86728a2458089b75a54fb1717e8";
   final NETWORK_WSS_RPC =
       "wss://sepolia.infura.io/ws/v3/a3afa86728a2458089b75a54fb1717e8";
   final CHAIN_ID = 11155111;
   final imageMoke =
-      "https://assets.nfprompt.io/image/jW6N3BGqyanQRJmBlqwdM45JVb9o72zw.png?x-oss-process=image/interlace,1/format,webp/resize,w_400,m_lfit";
+      "https://images.unsplash.com/photo-1618042164219-62c820f10723?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80";
+      // "https://user-images.githubusercontent.com/42699234/195494675-e3494db8-7c26-4dd2-a006-fe20652335be.gif";
 
-  //PINATA DATA
-  final PINATA_API_KEY = "2de3703bc07f4980a6b7";
+  // PINATA DATA
+  final PINATA_API_KEY = "5edf7fe11d490ee42e4e";
   final PINATA_API_SECRET_KEY =
-      "7604844091d8a0c3d74930d8847eed12e85bf33db479b44792e7bec211d836a3";
+      "71d27b4cd46b054f6e663c0faac69a4ceed88a587e30f6d3fcb7dbf28bf55039";
   final PINATE_END_POINT_API = "https://api.pinata.cloud/pinning/pinFileToIPFS";
   final PINATE_FETCH_IMAGE_URL = "https://gateway.pinata.cloud/ipfs/";
+
+
 
   //========>
   final mainYellowColor = Color(0xffF1B026);
