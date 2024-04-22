@@ -19,9 +19,9 @@ class Constants {
       // "https://user-images.githubusercontent.com/42699234/195494675-e3494db8-7c26-4dd2-a006-fe20652335be.gif";
 
   // PINATA DATA
-  final PINATA_API_KEY = "5edf7fe11d490ee42e4e";
+  final PINATA_API_KEY = "";
   final PINATA_API_SECRET_KEY =
-      "71d27b4cd46b054f6e663c0faac69a4ceed88a587e30f6d3fcb7dbf28bf55039";
+      "";
   final PINATE_END_POINT_API = "https://api.pinata.cloud/pinning/pinFileToIPFS";
   final PINATE_FETCH_IMAGE_URL = "https://gateway.pinata.cloud/ipfs/";
 
@@ -46,5 +46,5 @@ class Constants {
   ];
 
   final mokeParagraph =
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,";
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
 }
